@@ -270,7 +270,8 @@ namespace Azure.Storage.Files.DataLake.Tests
                 ResourceTypes = AccountSasResourceTypes.All,
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(+1),
-                IPRange = new SasIPRange(IPAddress.None, IPAddress.None)
+                IPRange = new SasIPRange(IPAddress.None, IPAddress.None),
+                Version = ToSasVersion(_serviceVersion)
             };
             builder.SetPermissions(
                 AccountSasPermissions.Read |
@@ -290,7 +291,8 @@ namespace Azure.Storage.Files.DataLake.Tests
                 Protocol = SasProtocol.None,
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(+1),
-                IPRange = new SasIPRange(IPAddress.None, IPAddress.None)
+                IPRange = new SasIPRange(IPAddress.None, IPAddress.None),
+                Version = ToSasVersion(_serviceVersion)
             };
             builder.SetPermissions(DataLakeFileSystemSasPermissions.All);
             return builder.ToSasQueryParameters(sharedKeyCredentials ?? GetNewSharedKeyCredentials());
@@ -304,7 +306,8 @@ namespace Azure.Storage.Files.DataLake.Tests
                 Protocol = SasProtocol.None,
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(+1),
-                IPRange = new SasIPRange(IPAddress.None, IPAddress.None)
+                IPRange = new SasIPRange(IPAddress.None, IPAddress.None),
+                Version = ToSasVersion(_serviceVersion)
             };
             builder.SetPermissions(DataLakeFileSystemSasPermissions.All);
             return builder.ToSasQueryParameters(userDelegationKey, accountName);
@@ -319,7 +322,8 @@ namespace Azure.Storage.Files.DataLake.Tests
                 Protocol = SasProtocol.None,
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(+1),
-                IPRange = new SasIPRange(IPAddress.None, IPAddress.None)
+                IPRange = new SasIPRange(IPAddress.None, IPAddress.None),
+                Version = ToSasVersion(_serviceVersion)
             };
             builder.SetPermissions(
                 DataLakeSasPermissions.Read |
@@ -339,7 +343,8 @@ namespace Azure.Storage.Files.DataLake.Tests
                 Protocol = SasProtocol.None,
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(+1),
-                IPRange = new SasIPRange(IPAddress.None, IPAddress.None)
+                IPRange = new SasIPRange(IPAddress.None, IPAddress.None),
+                Version = ToSasVersion(_serviceVersion)
             };
             builder.SetPermissions(
                 DataLakeSasPermissions.Read |
@@ -357,7 +362,8 @@ namespace Azure.Storage.Files.DataLake.Tests
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(1),
                 FileSystemName = fileSystemName,
-                AgentObjectId = ownerName
+                AgentObjectId = ownerName,
+                Version = ToSasVersion(_serviceVersion)
             };
             dataLakeSasBuilder.SetPermissions(DataLakeSasPermissions.All);
             return dataLakeSasBuilder.ToSasQueryParameters(userDelegationKey, accountName);
@@ -376,9 +382,26 @@ namespace Azure.Storage.Files.DataLake.Tests
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(+1),
                 IPRange = new SasIPRange(IPAddress.None, IPAddress.None),
+                Version = ToSasVersion(_serviceVersion)
             };
             builder.SetPermissions(permissions);
             return builder.ToSasQueryParameters(sharedKeyCredentials ?? GetNewSharedKeyCredentials());
+        }
+
+        public static string ToSasVersion(DataLakeClientOptions.ServiceVersion serviceVersion)
+        {
+            return serviceVersion switch
+            {
+                DataLakeClientOptions.ServiceVersion.V2019_02_02 => "2019-02-02",
+                DataLakeClientOptions.ServiceVersion.V2019_07_07 => "2019-07-07",
+                DataLakeClientOptions.ServiceVersion.V2019_12_12 => "2019-12-12",
+                DataLakeClientOptions.ServiceVersion.V2020_02_10 => "2020-02-10",
+                DataLakeClientOptions.ServiceVersion.V2020_04_08 => "2020-04-08",
+                DataLakeClientOptions.ServiceVersion.V2020_06_12 => "2020-06-12",
+                DataLakeClientOptions.ServiceVersion.V2020_08_04 => "2020-08-04",
+                DataLakeClientOptions.ServiceVersion.V2020_10_02 => "2020-10-02",
+                _ => throw new ArgumentException("Invalid service version"),
+            };
         }
 
         //TODO consider removing this.
