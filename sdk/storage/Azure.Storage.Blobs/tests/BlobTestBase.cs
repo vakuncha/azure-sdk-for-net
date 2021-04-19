@@ -26,6 +26,7 @@ namespace Azure.Storage.Test.Shared
         BlobClientOptions.ServiceVersion.V2020_04_08,
         BlobClientOptions.ServiceVersion.V2020_06_12,
         BlobClientOptions.ServiceVersion.V2020_08_04,
+        BlobClientOptions.ServiceVersion.V2020_10_02,
         StorageVersionExtensions.LatestVersion,
         StorageVersionExtensions.MaxVersion,
         RecordingServiceVersion = StorageVersionExtensions.MaxVersion,
@@ -503,6 +504,7 @@ namespace Azure.Storage.Test.Shared
                 BlobClientOptions.ServiceVersion.V2020_04_08 => "2020-04-08",
                 BlobClientOptions.ServiceVersion.V2020_06_12 => "2020-06-12",
                 BlobClientOptions.ServiceVersion.V2020_08_04 => "2020-08-04",
+                BlobClientOptions.ServiceVersion.V2020_10_02 => "2020-10-02",
                 _ => throw new ArgumentException("Invalid service version"),
             };
         }
