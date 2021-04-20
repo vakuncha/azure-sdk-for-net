@@ -53,7 +53,8 @@ namespace Azure.Storage.Files.DataLake.Tests
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(1),
                 Services = AccountSasServices.Blobs,
-                ResourceTypes = AccountSasResourceTypes.All
+                ResourceTypes = AccountSasResourceTypes.All,
+                Version = ToSasVersion(_serviceVersion)
             };
 
             await test.FileSystem.GetPropertiesAsync();
@@ -208,7 +209,8 @@ namespace Azure.Storage.Files.DataLake.Tests
             {
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(1),
-                FileSystemName = test.FileSystem.Name
+                FileSystemName = test.FileSystem.Name,
+                Version = ToSasVersion(_serviceVersion)
             };
 
             dataLakeSasBuilder.SetPermissions(
@@ -253,7 +255,8 @@ namespace Azure.Storage.Files.DataLake.Tests
                 ExpiresOn = Recording.UtcNow.AddHours(1),
                 FileSystemName = test.FileSystem.Name,
                 Path = directory.Path,
-                IsDirectory = true
+                IsDirectory = true,
+                Version = ToSasVersion(_serviceVersion)
             };
 
             dataLakeSasBuilder.SetPermissions(DataLakeSasPermissions.All);
@@ -336,7 +339,8 @@ namespace Azure.Storage.Files.DataLake.Tests
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(1),
                 FileSystemName = test.FileSystem.Name,
-                PreauthorizedAgentObjectId = Recording.Random.NewGuid().ToString()
+                PreauthorizedAgentObjectId = Recording.Random.NewGuid().ToString(),
+                Version = ToSasVersion(_serviceVersion)
             };
 
             dataLakeSasBuilder.SetPermissions(DataLakeSasPermissions.All);
@@ -390,7 +394,8 @@ namespace Azure.Storage.Files.DataLake.Tests
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(1),
                 FileSystemName = test.FileSystem.Name,
-                AgentObjectId = unknownGuid
+                AgentObjectId = unknownGuid,
+                Version = ToSasVersion(_serviceVersion)
             };
             dataLakeSasBuilder.SetPermissions(DataLakeSasPermissions.All);
 
@@ -506,7 +511,8 @@ namespace Azure.Storage.Files.DataLake.Tests
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(1),
                 FileSystemName = test.FileSystem.Name,
-                CorrelationId = Recording.Random.NewGuid().ToString()
+                CorrelationId = Recording.Random.NewGuid().ToString(),
+                Version = ToSasVersion(_serviceVersion)
             };
 
             dataLakeSasBuilder.SetPermissions(DataLakeSasPermissions.List);
@@ -547,7 +553,8 @@ namespace Azure.Storage.Files.DataLake.Tests
                 ExpiresOn = Recording.UtcNow.AddHours(1),
                 FileSystemName = test.FileSystem.Name,
                 Path = subdirectory3.Path,
-                IsDirectory = true
+                IsDirectory = true,
+                Version = ToSasVersion(_serviceVersion)
             };
 
             dataLakeSasBuilder.SetPermissions(DataLakeSasPermissions.All);

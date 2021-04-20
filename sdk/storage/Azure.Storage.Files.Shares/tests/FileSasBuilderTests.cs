@@ -128,7 +128,8 @@ namespace Azure.Storage.Files.Shares.Tests
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(1),
                 Services = AccountSasServices.Files,
-                ResourceTypes = AccountSasResourceTypes.All
+                ResourceTypes = AccountSasResourceTypes.All,
+                Version = ToSasVersion(_serviceVersion)
             };
 
             accountSasBuilder.SetPermissions(permissionsString);
