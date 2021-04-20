@@ -421,7 +421,8 @@ namespace Azure.Storage.Blobs.Test
             {
                 StartsOn = Recording.UtcNow.AddHours(-1),
                 ExpiresOn = Recording.UtcNow.AddHours(1),
-                BlobContainerName = test.Container.Name
+                BlobContainerName = test.Container.Name,
+                Version = ToSasVersion(_serviceVersion)
             };
 
             blobSasBuilder.SetPermissions(permissions);
