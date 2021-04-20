@@ -5118,7 +5118,7 @@ namespace Azure.Storage.Files.DataLake.Tests
             DataLakeUriBuilder dataLakeUriBuilder = new DataLakeUriBuilder(serviceUri)
             {
                 FileSystemName = fileSystemName,
-                DirectoryOrFilePath = path
+                DirectoryOrFilePath = path,
             };
             DataLakeSasPermissions permissions = DataLakeSasPermissions.Read;
             DateTimeOffset expiresOn = Recording.UtcNow.AddHours(+1);
@@ -5135,7 +5135,8 @@ namespace Azure.Storage.Files.DataLake.Tests
             {
                 FileSystemName = fileSystemName,
                 Path = path,
-                IsDirectory = true
+                IsDirectory = true,
+                Version = ToSasVersion(_serviceVersion)
             };
             DataLakeUriBuilder expectedUri = new DataLakeUriBuilder(serviceUri)
             {
